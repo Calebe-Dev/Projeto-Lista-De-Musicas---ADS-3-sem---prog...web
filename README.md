@@ -49,3 +49,6 @@ git push -u origin main
 
 #bootstrap ng
 ng add @ng-bootstrap/ng-bootstrap
+
+#gerando o componente em angular
+ng g c tabela-de-musicas
