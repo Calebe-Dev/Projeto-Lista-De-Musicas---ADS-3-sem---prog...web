@@ -1,8 +1,3 @@
-Claro! Vou atualizar o README.md para incluir essa etapa inicial, onde os dados das músicas eram mantidos diretamente no componente TypeScript (`.ts`). Isso permitirá que o leitor veja a evolução do projeto desde o uso de um array local até a integração com um serviço externo. 
-
-### Atualização do README.md
-
-```markdown
 # Projeto Lista de Músicas - ADS 3º Semestre - Programação Web
 
 Este projeto faz parte do curso de Análise e Desenvolvimento de Sistemas (ADS) no 3º semestre, na disciplina de Programação Web. A aplicação consiste em uma tabela que lista músicas com informações detalhadas, aproveitando componentes do Bootstrap e utilizando uma API externa para obter os dados.
