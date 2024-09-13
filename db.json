@@ -1,0 +1,173 @@
+{
+  "musics": [
+    {
+      "id": 1,
+      "name": "Bohemian Rhapsody",
+      "price": 9.99,
+      "category": "Rock",
+      "artist": "Queen",
+      "year": 1975
+    },
+    {
+      "id": 2,
+      "name": "Hotel California",
+      "price": 9.99,
+      "category": "Rock",
+      "artist": "Eagles",
+      "year": 1976
+    },
+    {
+      "id": 3,
+      "name": "Imagine",
+      "price": 8.99,
+      "category": "Pop",
+      "artist": "John Lennon",
+      "year": 1971
+    },
+    {
+      "id": 4,
+      "name": "Billie Jean",
+      "price": 8.99,
+      "category": "Pop",
+      "artist": "Michael Jackson",
+      "year": 1982
+    },
+    {
+      "id": 5,
+      "name": "Rolling in the Deep",
+      "price": 9.99,
+      "category": "Pop",
+      "artist": "Adele",
+      "year": 2010
+    },
+    {
+      "id": 6,
+      "name": "Blowing in the Wind",
+      "price": 7.99,
+      "category": "Folk",
+      "artist": "Bob Dylan",
+      "year": 1963
+    },
+    {
+      "id": 7,
+      "name": "Landslide",
+      "price": 7.99,
+      "category": "Folk",
+      "artist": "Fleetwood Mac",
+      "year": 1975
+    },
+    {
+      "id": 8,
+      "name": "Sweet Child O' Mine",
+      "price": 9.99,
+      "category": "Rock",
+      "artist": "Guns N' Roses",
+      "year": 1987
+    },
+    {
+      "id": 9,
+      "name": "Someone Like You",
+      "price": 8.99,
+      "category": "Pop",
+      "artist": "Adele",
+      "year": 2011
+    },
+    {
+      "id": 10,
+      "name": "Stairway to Heaven",
+      "price": 10.99,
+      "category": "Rock",
+      "artist": "Led Zeppelin",
+      "year": 1971
+    },
+    {
+      "id": 11,
+      "name": "Shallow",
+      "price": 9.99,
+      "category": "Pop",
+      "artist": "Lady Gaga & Bradley Cooper",
+      "year": 2018
+    },
+    {
+      "id": 12,
+      "name": "The Sound of Silence",
+      "price": 7.99,
+      "category": "Folk",
+      "artist": "Simon & Garfunkel",
+      "year": 1964
+    },
+    {
+      "id": 13,
+      "name": "Smells Like Teen Spirit",
+      "price": 9.99,
+      "category": "Rock",
+      "artist": "Nirvana",
+      "year": 1991
+    },
+    {
+      "id": 14,
+      "name": "Shape of You",
+      "price": 8.99,
+      "category": "Pop",
+      "artist": "Ed Sheeran",
+      "year": 2017
+    },
+    {
+      "id": 15,
+      "name": "Mr. Tambourine Man",
+      "price": 7.99,
+      "category": "Folk",
+      "artist": "The Byrds",
+      "year": 1965
+    },
+    {
+      "id": 16,
+      "name": "Back in Black",
+      "price": 9.99,
+      "category": "Rock",
+      "artist": "AC/DC",
+      "year": 1980
+    },
+    {
+      "id": 17,
+      "name": "Hello",
+      "price": 9.99,
+      "category": "Pop",
+      "artist": "Adele",
+      "year": 2015
+    },
+    {
+      "id": 18,
+      "name": "The Times They Are a-Changin'",
+      "price": 7.99,
+      "category": "Folk",
+      "artist": "Bob Dylan",
+      "year": 1964
+    },
+    {
+      "id": 19,
+      "name": "Paint It, Black",
+      "price": 8.99,
+      "category": "Rock",
+      "artist": "The Rolling Stones",
+      "year": 1966
+    },
+    {
+      "id": 20,
+      "name": "Uptown Funk",
+      "price": 8.99,
+      "category": "Pop",
+      "artist": "Mark Ronson ft. Bruno Mars",
+      "year": 2014
+    },
+    {
+      "id": 21,
+      "name": "Scarborough Fair",
+      "price": 7.99,
+      "category": "Folk",
+      "artist": "Simon & Garfunkel",
+      "year": 1966
+    }
+  ]
+}
+
