@@ -8,6 +8,7 @@
                 <th scope="col">Artista</th>
                 <th scope="col">Genero</th>
                 <th scope="col">Ano</th>
+                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
             <td>{{musica.category}}</td>
             <td>{{musica.artist}}</td>
             <td>{{musica.year}}</td>
+            <td><button class="btn btn-danger"(click)="delete(musica)">Remover</button></td>
           </tr>
         </tbody>
      </table>

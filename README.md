@@ -228,6 +228,82 @@ ng serve
 
 2. Abra o navegador e navegue até `http://localhost:4200` para ver a tabela de músicas carregada com os dados da API externa.
 
+
+
+### Atualização do README.md
+
+```markdown
+### 10. Implementação da Função de Remoção de Músicas
+
+Após a exibição da lista de músicas, foi adicionada a funcionalidade de remoção. Agora, ao lado de cada música, há um botão que permite removê-la da lista. A lógica para essa operação foi implementada tanto no arquivo HTML quanto no arquivo TypeScript do componente.
+
+#### 10.1 Modificação do HTML
+
+Adicionamos um botão "Remover" à tabela de músicas. O botão dispara o evento `(click)` para acionar a função `delete` no componente TypeScript.
+
+No arquivo `tabela-de-musicas.component.html`, adicione o seguinte código dentro do loop da tabela, onde as músicas são exibidas:
+
+```html
+<td><button class="btn btn-danger" (click)="delete(musica)">Remover</button></td>
+```
+
+Este botão utiliza a classe `btn btn-danger` do Bootstrap para estilização e chama a função `delete` passando como argumento a música selecionada.
+
+#### 10.2 Implementação da Função `delete`
+
+No arquivo `tabela-de-musicas.component.ts`, implemente a função `delete` que irá chamar o serviço responsável por remover a música da lista. Após a remoção, a lista é recarregada para refletir a mudança.
+
+```typescript
+delete(musica: musica) {
+  this.musicasService.delete(musica).subscribe({
+    next: () => this.loadMusicas()
+  });
+}
+```
+
+#### 10.3 Modificação no Serviço `MusicasService`
+
+Para que a função de exclusão funcione corretamente, também é necessário adicionar a função `delete` ao serviço `MusicasService`. Essa função fará uma requisição HTTP DELETE para a API, removendo o item correspondente.
+
+No arquivo `musicas.service.ts`, adicione o seguinte método:
+
+```typescript
+  delete(musica: musica): Observable<void>{
+   return this.http.delete<void>('http://localhost:3000/musics' + musica.id);
+  }
+```
+
+Esse método constrói a URL com base no `id` da música e faz a requisição DELETE para remover o item da API.
+
+#### 10.4 Recarga da Lista de Músicas
+
+A função `loadMusicas` já existente é utilizada para recarregar a lista de músicas após a remoção. Isso garante que a tabela seja atualizada dinamicamente sem a necessidade de recarregar a página.
+
+```typescript
+loadMusicas(): void {
+  this.musicasService.getMusicas().subscribe(data => {
+    this.musicas = data;
+  });
+}
+```
+
+### 11. Testando a Função de Remoção
+
+1. Inicie a aplicação com o comando:
+
+```bash
+ng serve
+```
+
+2. Abra a aplicação no navegador (`http://localhost:4200`) e tente remover uma música da lista clicando no botão "Remover". A música deve ser removida da tabela e o layout atualizado automaticamente.
+
+Essa funcionalidade de remoção torna o sistema mais dinâmico e interativo, permitindo ao usuário gerenciar os itens da lista de forma simples e eficiente.
+```
+
+Esse trecho inclui as novas funcionalidades relacionadas à exclusão de músicas, explicando como implementar tanto o botão no HTML quanto a lógica necessária no componente e no serviço TypeScript.
+
+
+
 ## Conclusão
 
 Este projeto demonstrou como criar uma aplicação Angular usando Bootstrap para estilização e consumindo dados de uma API externa. Começamos com dados locais e, em seguida, avançamos para uma arquitetura mais modular e escalável utilizando serviços e um servidor JSON.

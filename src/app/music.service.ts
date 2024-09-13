@@ -13,6 +13,10 @@ export class MusicService {
   getMusics():Observable<musica[]>{
     return this.http.get<musica[]>('http://localhost:3000/musics');
   }
+
+  delete(musica: musica): Observable<void>{
+   return this.http.delete<void>('http://localhost:3000/musics' + musica.id);
+  }
 }
 
 

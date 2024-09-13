@@ -21,6 +21,11 @@ export class TabelaDeMusicasComponent {
     })
   }
 
+  delete(musica: musica){
+   this.service.delete(musica).subscribe({
+      next: () => this.loadMusicas()
+   })
+  }
 
 }
 /*
