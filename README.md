@@ -229,10 +229,6 @@ ng serve
 2. Abra o navegador e navegue até `http://localhost:4200` para ver a tabela de músicas carregada com os dados da API externa.
 
 
-
-### Atualização do README.md
-
-```markdown
 ### 10. Implementação da Função de Remoção de Músicas
 
 Após a exibição da lista de músicas, foi adicionada a funcionalidade de remoção. Agora, ao lado de cada música, há um botão que permite removê-la da lista. A lógica para essa operação foi implementada tanto no arquivo HTML quanto no arquivo TypeScript do componente.
