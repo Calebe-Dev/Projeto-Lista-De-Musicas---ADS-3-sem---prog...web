@@ -54,6 +54,87 @@ ng add @ng-bootstrap/ng-bootstrap
 ng g c tabela-de-musicas
 ```
 
+
+2. Estrutura do componente HTML:
+
+ A estrutura da tabela da seção html do componente vem de um  template do bootstrap, que foi personalizado para atender as necessidades do projeto.
+---
+
+### Estrutura do HTML
+
+A página exibe uma tabela de músicas com colunas como ID, Título, Nota, Artista, Gênero, Ano, e Ações. Abaixo está a explicação detalhada:
+
+- **`<div class="container">`**: 
+  - Um contêiner que centraliza e organiza o conteúdo, garantindo que ele esteja corretamente alinhado e estilizado.
+  
+- **`<table class="table">`**:
+  - Cria uma tabela estilizada usando classes fornecidas por frameworks como o Bootstrap, onde serão exibidos os dados das músicas.
+  
+- **`<thead>`**:
+  - A seção de cabeçalho da tabela, onde as colunas são definidas.
+  
+  - **`<tr>`**: Representa uma linha no cabeçalho da tabela.
+    - **`<th scope="col">`**: Define um cabeçalho para cada coluna da tabela. As colunas são:
+      1. **ID**: O identificador único da música.
+      2. **Título**: O nome da música.
+      3. **Nota**: O preço ou nota da música.
+      4. **Artista**: O artista que performa a música.
+      5. **Gênero**: O gênero musical da música (ex: Pop, Rock, etc.).
+      6. **Ano**: O ano de lançamento da música.
+      7. **Ações**: Contém os botões para ações como remover músicas.
+
+- **`<tbody>`**:
+  - A seção de corpo da tabela, onde os dados das músicas são inseridos dinamicamente.
+  
+  - **`<tr *ngFor="let musica of musicas">`**:
+    - Cria uma nova linha para cada música na lista `musicas`, usando a diretiva Angular `*ngFor` para fazer o loop dos dados.
+    
+    - **`<th scope="row">{{musica.id}}</th>`**: Mostra o ID da música como identificador da linha.
+    
+    - **`<td>{{musica.name}}</td>`**: Exibe o título da música.
+    
+    - **`<td>{{musica.price}}</td>`**: Exibe o preço ou nota da música.
+    
+    - **`<td>{{musica.category}}</td>`**: Exibe o gênero musical.
+    
+    - **`<td>{{musica.artist}}</td>`**: Exibe o nome do artista.
+    
+    - **`<td>{{musica.year}}</td>`**: Exibe o ano de lançamento da música.
+    
+    - **`<td><button class="btn btn-danger"(click)="delete(musica)">Remover</button></td>`**: Adiciona um botão "Remover" para cada linha da tabela. O botão executa a função `delete(musica)` ao ser clicado, que remove a música correspondente.
+
+
+
+Este código HTML renderiza uma tabela dinâmica que permite a visualização e manipulação de uma lista de músicas, onde o usuário pode remover músicas individualmente por meio de um botão de ação.
+
+Meu resultado:
+```html
+   <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Nota</th>
+                <th scope="col">Artista</th>
+                <th scope="col">Genero</th>
+                <th scope="col">Ano</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let musica of musicas">
+            <th scope="row">{{musica.id}}</th>
+            <td>{{musica.name}}</td>
+            <td>{{musica.price}}</td>
+            <td>{{musica.category}}</td>
+            <td>{{musica.artist}}</td>
+            <td>{{musica.year}}</td>
+            <td><button class="btn btn-danger"(click)="delete(musica)">Remover</button></td>
+          </tr>
+        </tbody>
+     </table>
+```
+
 ### 5. Implementação Inicial com Dados Localizados no Componente
 
 1. Antes de integrar com uma API externa, os dados das músicas foram mantidos diretamente dentro do componente Angular. Abaixo está o código que foi usado no arquivo `tabela-de-musicas.component.ts`:
@@ -294,7 +375,7 @@ ng serve
 2. Abra a aplicação no navegador (`http://localhost:4200`) e tente remover uma música da lista clicando no botão "Remover". A música deve ser removida da tabela e o layout atualizado automaticamente.
 
 Essa funcionalidade de remoção torna o sistema mais dinâmico e interativo, permitindo ao usuário gerenciar os itens da lista de forma simples e eficiente.
-```
+
 
 Esse trecho inclui as novas funcionalidades relacionadas à exclusão de músicas, explicando como implementar tanto o botão no HTML quanto a lógica necessária no componente e no serviço TypeScript.
 
@@ -313,6 +394,6 @@ Este projeto demonstrou como criar uma aplicação Angular usando Bootstrap para
 ## Links Importantes
 
 - [Repositório no GitHub](https://github.com/Calebe-Dev/Projeto-Lista-De-Musicas---ADS-3-sem---prog...web)
-```
+
 
 Esse README detalha todas as etapas, incluindo a fase inicial onde o array de músicas estava no componente. Dessa forma, ele cobre todo o desenvolvimento do projeto, desde o protótipo inicial até a versão final com a API externa.
