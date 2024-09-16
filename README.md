@@ -265,7 +265,7 @@ No arquivo `musicas.service.ts`, adicione o seguinte método:
 
 ```typescript
   delete(musica: musica): Observable<void>{
-   return this.http.delete<void>('http://localhost:3000/musics' + musica.id);
+   return this.http.delete<void>('http://localhost:3000/musics/' + musica.id);
   }
 ```
 
