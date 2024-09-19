@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabelaDeMusicasComponent } from './tabela-de-musicas/tabela-de-musicas.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormularioMusicasComponent } from './formulario-musicas/formulario-musicas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TabelaDeMusicasComponent
+    TabelaDeMusicasComponent,
+    FormularioMusicasComponent
   ],
   imports: [
     BrowserModule,

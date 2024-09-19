@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="display-5">
+    <h1>Cadastro de musicas:</h1>
+  </div>
     <table class="table">
         <thead>
             <tr>
@@ -14,7 +17,7 @@
         <tbody>
           <tr *ngFor="let musica of musicas">
             <th scope="row">{{musica.id}}</th>
-            <td>{{musica.name}}</td>
+            <td><a [routerLink]="['/musica',musica.id]">{{musica.name}}</a></td>
             <td>{{musica.price}}</td>
             <td>{{musica.category}}</td>
             <td>{{musica.artist}}</td>
