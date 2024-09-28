@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabelaDeMusicasComponent } from './tabela-de-musicas/tabela-de-musicas.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormularioMusicasComponent } from './formulario-musicas/formulario-musicas.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormularioMusicasComponent } from './formulario-musicas/formulario-musi
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()
