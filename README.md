@@ -19,9 +19,13 @@ Este projeto faz parte do curso de Análise e Desenvolvimento de Sistemas (ADS) 
    - [Conectando o Serviço ao Componente](#8-conectando-o-serviço-ao-componente)
    - [Testando a Aplicação](#9-testando-a-aplicação)
    - [Implementação da Função de Remoção de Músicas](#10-implementação-da-função-de-remoção-de-músicas)
+   - [Criação do Componente Formulário de Músicas](#12-criação-do-componente-formulário-de-músicas)
+   - [Implementação da Edição de Músicas](#13-implementação-da-edição-de-músicas)
 5. [Conclusão](#conclusão)
 6. [Comandos Úteis](#comandos-úteis)
 7. [Links Importantes](#links-importantes)
+
+
 
 ## Descrição do Projeto
 
@@ -599,11 +603,194 @@ src/app/tabela-de-musicas/tabela-de-musicas.component.html
 Agora, cada nome de música na tabela será um link para a página de edição/cadastro do formulário.
 
 
+### 13. Implementação da Edição de Músicas
+(15º Commit - Commits on Sep 28, 2024)
+
+Nesta etapa, foi adicionada a funcionalidade para editar músicas já existentes no sistema. Utilizamos **Reactive Forms** para manipulação de formulários e atualização dos dados na API simulada.
+
+#### 13.1. Atualização do Módulo Principal
+
+No arquivo **app.module.ts**, foi necessário importar o módulo **ReactiveFormsModule** para trabalhar com formulários reativos. Além disso, foi adicionada a função de hidratação do cliente com o método `provideClientHydration()`.
+
+Aqui está o trecho atualizado do arquivo **app.module.ts**:
+
+```plaintext
+src/app/app.module.ts
+```
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TabelaDeMusicasComponent } from './tabela-de-musicas/tabela-de-musicas.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormularioMusicasComponent } from './formulario-musicas/formulario-musicas.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    TabelaDeMusicasComponent,
+    FormularioMusicasComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    provideClientHydration()
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### 13.2. Adicionando Formulário Reativo para Edição de Músicas
+
+No arquivo **formulario-musicas.component.html**, foi criado um formulário reativo que permite a edição dos dados da música selecionada. O formulário é preenchido automaticamente quando uma música é selecionada.
+
+Aqui está o trecho atualizado do arquivo **formulario-musicas.component.html**:
+
+```plaintext
+src/app/formulario-musicas/formulario-musicas.component.html
+```
+
+```html
+<div class="container">
+  <form [formGroup]="formGrupMusic">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome</label>
+      <input type="text" formControlName="name" class="form-control" id="name" placeholder="Digite o nome da música">
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Nota</label>
+      <input type="number" formControlName="price" class="form-control" id="price" placeholder="Digite a nota para a música">
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Categoria</label>
+      <input type="text" formControlName="category" class="form-control" id="category" placeholder="Digite a categoria para a música">
+    </div>
+    <div class="mb-3">
+      <label for="artist" class="form-label">Artista</label>
+      <input type="text" formControlName="artist" class="form-control" id="artist" placeholder="Digite o artista da música">
+    </div>
+    <div class="mb-3">
+      <label for="year" class="form-label">Ano</label>
+      <input type="number" formControlName="year" class="form-control" id="year" placeholder="Digite o ano de lançamento da música">
+    </div>
+    <button type="submit" (click)="update()" class="btn btn-primary">Salvar</button>
+  </form>
+</div>
+```
+
+#### 13.3. Lógica de Carregamento e Edição de Músicas
+
+No arquivo **formulario-musicas.component.ts**, implementamos a lógica para carregar os dados da música selecionada ao acessar a rota de edição. Utilizamos o **ActivatedRoute** para obter o ID da música na URL e o **MusicService** para buscar os dados da música.
+
+Aqui está o trecho atualizado do arquivo **formulario-musicas.component.ts**:
+
+```plaintext
+src/app/formulario-musicas/formulario-musicas.component.ts
+```
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MusicService } from '../music.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+@Component({
+  selector: 'app-formulario-musicas',
+  templateUrl: './formulario-musicas.component.html',
+  styleUrls: ['./formulario-musicas.component.css']
+})
+export class FormularioMusicasComponent implements OnInit {
+  formGrupMusic: FormGroup;
+
+  constructor(private router: Router,
+              private activatedRouter: ActivatedRoute,
+              private service: MusicService,
+              private formBuilder: FormBuilder) {
+    this.formGrupMusic = this.formBuilder.group({
+      id: [''],
+      name: [''],
+      artist: [''],
+      price: [''],
+      category: [''],
+      year: ['']
+    });
+  }
+
+  ngOnInit(): void {
+    const id = Number(this.activatedRouter.snapshot.paramMap.get("id"));
+    this.loadMusicas(id);
+  }
+
+  loadMusicas(id: number): void {
+    this.service.getMusicasById(id).subscribe({
+      next: data => this.formGrupMusic.setValue(data)
+    });
+  }
+
+  update(): void {
+    this.service.update(this.formGrupMusic.value).subscribe({
+      next: () => this.router.navigate(['musicas'])
+    });
+  }
+}
+```
+
+#### 13.4. Atualizando o Serviço para Edição de Músicas
+
+No arquivo **music.service.ts**, foi implementada a função `getMusicasById` para buscar uma música específica pelo ID e a função `update` para enviar os dados atualizados ao servidor.
+
+Aqui está o trecho atualizado do arquivo **music.service.ts**:
+
+```plaintext
+src/app/music.service.ts
+```
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { musica } from './musicas';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MusicService {
+  private apiUrl = 'http://localhost:3000/musicas';
+
+  constructor(private http: HttpClient) { }
+
+  getMusicasById(id: number): Observable<musica> {
+    return this.http.get<musica>(`${this.apiUrl}/${id}`);
+  }
+
+  update(musica: musica): Observable<musica> {
+    return this.http.put<musica>(`${this.apiUrl}/${musica.id}`, musica);
+  }
+}
+```
+
+#### 13.5. Testando a Edição de Músicas
+
+Agora você pode testar a funcionalidade de edição. Ao clicar no nome de uma música na tabela, você será redirecionado para o formulário onde poderá editar os dados e, em seguida, salvá-los.
+
+1. **Acessar o Formulário de Edição**: Na **Tabela de Músicas**, o nome de cada música está vinculado à rota de edição. Clicar no nome redireciona o usuário para o formulário de edição.
+
+2. **Atualizar a Música**: Ao alterar os dados no formulário e clicar no botão "Salvar", a música será atualizada e o usuário será redirecionado para a tabela de músicas.
 
 
 ### Conclusão
 
-Este projeto mostrou como criar uma aplicação Angular estilizada com Bootstrap e consumindo dados de uma API externa simulada com **JSON Server**.
+Este projeto mostrou como criar uma aplicação Angular estilizada com Bootstrap e consumindo dados de uma API externa simulada com **JSON Server**. O Sistema permite que o usuário edite as músicas cadastradas diretamente na aplicação. O formulário reativo facilita a manipulação dos dados e a integração com a API.
 
 ## Comandos Úteis
 
@@ -612,4 +799,8 @@ Este projeto mostrou como criar uma aplicação Angular estilizada com Bootstrap
 - `ng add @ng-bootstrap/ng-bootstrap` - Adiciona o Bootstrap ao projeto Angular.
 
 ## Links Importantes
-
+Repositório: https://github.com/Calebe-Dev/Projeto-Lista-De-Musicas---ADS-3-sem---prog...web.git
+Node Js:https://nodejs.org/pt
+Angular: https://angular.dev/
+Bootstrap NG: https://ng-bootstrap.github.io/#/home
+Json-Server: https://www.npmjs.com/package/json-server
