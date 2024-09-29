@@ -1,143 +1,200 @@
 # Projeto Lista de Músicas - ADS 3º Semestre - Programação Web
 
-Este projeto faz parte do curso de Análise e Desenvolvimento de Sistemas (ADS) no 3º semestre, na disciplina de Programação Web. A aplicação consiste em uma tabela que lista músicas com informações detalhadas, aproveitando componentes do Bootstrap e utilizando uma API externa para obter os dados.
+Este projeto faz parte do curso de Análise e Desenvolvimento de Sistemas (ADS) no 3º semestre, na disciplina de Programação Web. O objetivo da aplicação é exibir uma lista de músicas com informações detalhadas, utilizando componentes do Bootstrap e consumindo dados de uma API externa.
+
+## Índice
+
+1. [Descrição do Projeto](#descrição-do-projeto)
+2. [Funcionalidades](#funcionalidades)
+3. [Tecnologias Utilizadas](#tecnologias-utilizadas)
+4. [Etapas de Desenvolvimento](#etapas-de-desenvolvimento)
+   - [Criação do Projeto Angular](#1-criação-do-projeto-angular)
+   - [Configuração e Inicialização do Repositório Git](#2-configuração-e-inicialização-do-repositório-git)
+   - [Instalação do Bootstrap no Projeto Angular](#3-instalação-do-bootstrap-no-projeto-angular)
+   - [Criação do Componente da Tabela de Músicas](#4-criação-do-componente-da-tabela-de-músicas)
+   - [Estrutura HTML do Componente](#estrutura-html-do-componente)
+   - [Implementação Inicial com Dados Localizados no Componente](#5-implementação-inicial-com-dados-localizados-no-componente)
+   - [Migração para Uso de uma API Externa com JSON Server](#6-migração-para-uso-de-uma-api-externa-com-json-server)
+   - [Criação do Serviço Angular para Consumo da API](#7-criação-do-serviço-angular-para-consumo-da-api)
+   - [Conectando o Serviço ao Componente](#8-conectando-o-serviço-ao-componente)
+   - [Testando a Aplicação](#9-testando-a-aplicação)
+   - [Implementação da Função de Remoção de Músicas](#10-implementação-da-função-de-remoção-de-músicas)
+5. [Conclusão](#conclusão)
+6. [Comandos Úteis](#comandos-úteis)
+7. [Links Importantes](#links-importantes)
+
+## Descrição do Projeto
+
+A aplicação consiste em uma lista de músicas com informações detalhadas como nome, artista, ano de lançamento, gênero e preço. Utiliza o **Angular** como framework principal, o **Bootstrap** para estilização e um servidor **JSON** simulado como API para fornecer os dados.
 
 ## Funcionalidades
 
-- Exibir uma lista de músicas com detalhes como nome, artista, ano de lançamento, categoria e preço.
-- Utilizar o Bootstrap para estilização e criação da tabela de músicas.
-- Inicialmente, os dados das músicas foram mantidos diretamente no componente TypeScript (`.ts`), mas foram posteriormente migrados para um serviço que consome uma API externa.
+- Exibir uma lista de músicas com detalhes como nome, artista, ano de lançamento, gênero e preço.
+- Estilização com **Bootstrap**.
+- Consumo de dados de uma API externa simulada via **JSON Server**.
+- Possibilidade de remover músicas da lista.
 
 ## Tecnologias Utilizadas
 
-- Angular
-- Bootstrap
-- JSON Server (API externa simulada)
+- **Angular**
+- **Bootstrap**
+- **JSON Server** (API externa simulada)
 
 ## Etapas de Desenvolvimento
 
 ### 1. Criação do Projeto Angular
+(1º Commit - Commits on Sep 11, 2024)
 
-1. No terminal, crie um novo projeto Angular:
+1. No terminal, crie um novo projeto Angular com o seguinte comando:
+
+    ```bash
+    ng new lista-de-musicas --no-standalone
+    ```
+
+### 2. Configuração e Inicialização do Repositório Git
+
+Nesta etapa, configuramos o controle de versão para o projeto, o que permite que as alterações sejam salvas de forma organizada e possam ser compartilhadas com outros colaboradores. Vamos configurar o Git e subir o código para o GitHub.
+
+#### 2.1. Instalando o Git
+
+Se você ainda não tem o Git instalado, faça o download e siga as instruções de instalação:
+
+- [Git - Download](https://git-scm.com/downloads)
+
+#### 2.2. Configurando o Git pela Primeira Vez
+
+Após instalar o Git, é necessário configurá-lo com suas informações de usuário:
 
 ```bash
-ng new lista-de-musicas --no-standalone
+git config --global user.name "Seu Nome"
+git config --global user.email "seu-email@example.com"
 ```
 
-### 2. Inicialização do Repositório Git
+Essa configuração será usada para identificar as mudanças que você faz no código.
 
-1. Inicialize um repositório Git e configure o repositório remoto:
+#### 2.3. Inicializando o Repositório
 
-```bash
-echo "# Projeto-Lista-De-Musicas---ADS-3-sem---prog...web" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Calebe-Dev/Projeto-Lista-De-Musicas---ADS-3-sem---prog...web.git
-git push -u origin main
-```
+1. No diretório do seu projeto Angular, inicialize um repositório Git:
+
+    ```bash
+    git init
+    ```
+
+2. Adicione os arquivos do projeto ao repositório:
+
+    ```bash
+    git add .
+    ```
+
+3. Faça o primeiro commit, que irá salvar o estado atual do seu projeto:
+
+    ```bash
+    git commit -m "Primeiro commit - Projeto Lista de Músicas"
+    ```
+
+#### 2.4. Criando um Repositório no GitHub
+
+1. Vá até o [GitHub](https://github.com) e crie um novo repositório.
+2. Após criar o repositório, copie o link do repositório remoto (por exemplo: `https://github.com/SeuUsuario/Projeto-Lista-De-Musicas.git`).
+3. No terminal, conecte o repositório local ao repositório remoto no GitHub:
+
+    ```bash
+    git remote add origin https://github.com/SeuUsuario/Projeto-Lista-De-Musicas.git
+    ```
+
+4. Agora envie seus arquivos para o GitHub:
+
+    ```bash
+    git push -u origin main
+    ```
+
+Pronto! Agora seu projeto está salvo no GitHub e você pode compartilhá-lo ou colaborar com outras pessoas.
 
 ### 3. Instalação do Bootstrap no Projeto Angular
 
-1. Adicione o Bootstrap ao projeto Angular:
+1. Adicione o **Bootstrap** ao projeto com o seguinte comando:
 
-```bash
-ng add @ng-bootstrap/ng-bootstrap
-```
+    ```bash
+    ng add @ng-bootstrap/ng-bootstrap
+    ```
+(Lembre de que deve estar dentro da pasta do seu projeto)
 
 ### 4. Criação do Componente da Tabela de Músicas
+(2º Commit - Commits on Sep 12, 2024)
 
-1. Gere um novo componente Angular para exibir a tabela de músicas:
+Agora vamos criar um componente Angular para exibir a tabela de músicas.
 
-```bash
-ng g c tabela-de-musicas
+1. Gere o componente `tabela-de-musicas` com o seguinte comando:
+
+    ```bash
+    ng g c tabela-de-musicas
+    ```
+
+O caminho para o arquivo gerado será:
+
+```plaintext
+src/app/tabela-de-musicas/tabela-de-musicas.component.ts
 ```
 
+### Estrutura HTML do Componente
+(3ª Commit - Commits on Sep 12, 2024)
 
-2. Estrutura do componente HTML:
+Aqui está a estrutura do arquivo `tabela-de-musicas.component.html`, que exibirá a lista de músicas:
 
- A estrutura da tabela da seção html do componente vem de um  template do bootstrap, que foi personalizado para atender as necessidades do projeto.
----
-
-### Estrutura do HTML
-
-A página exibe uma tabela de músicas com colunas como ID, Título, Nota, Artista, Gênero, Ano, e Ações. Abaixo está a explicação detalhada:
-
-- **`<div class="container">`**: 
-  - Um contêiner que centraliza e organiza o conteúdo, garantindo que ele esteja corretamente alinhado e estilizado.
-  
-- **`<table class="table">`**:
-  - Cria uma tabela estilizada usando classes fornecidas por frameworks como o Bootstrap, onde serão exibidos os dados das músicas.
-  
-- **`<thead>`**:
-  - A seção de cabeçalho da tabela, onde as colunas são definidas.
-  
-  - **`<tr>`**: Representa uma linha no cabeçalho da tabela.
-    - **`<th scope="col">`**: Define um cabeçalho para cada coluna da tabela. As colunas são:
-      1. **ID**: O identificador único da música.
-      2. **Título**: O nome da música.
-      3. **Nota**: O preço ou nota da música.
-      4. **Artista**: O artista que performa a música.
-      5. **Gênero**: O gênero musical da música (ex: Pop, Rock, etc.).
-      6. **Ano**: O ano de lançamento da música.
-      7. **Ações**: Contém os botões para ações como remover músicas.
-
-- **`<tbody>`**:
-  - A seção de corpo da tabela, onde os dados das músicas são inseridos dinamicamente.
-  
-  - **`<tr *ngFor="let musica of musicas">`**:
-    - Cria uma nova linha para cada música na lista `musicas`, usando a diretiva Angular `*ngFor` para fazer o loop dos dados.
-    
-    - **`<th scope="row">{{musica.id}}</th>`**: Mostra o ID da música como identificador da linha.
-    
-    - **`<td>{{musica.name}}</td>`**: Exibe o título da música.
-    
-    - **`<td>{{musica.price}}</td>`**: Exibe o preço ou nota da música.
-    
-    - **`<td>{{musica.category}}</td>`**: Exibe o gênero musical.
-    
-    - **`<td>{{musica.artist}}</td>`**: Exibe o nome do artista.
-    
-    - **`<td>{{musica.year}}</td>`**: Exibe o ano de lançamento da música.
-    
-    - **`<td><button class="btn btn-danger"(click)="delete(musica)">Remover</button></td>`**: Adiciona um botão "Remover" para cada linha da tabela. O botão executa a função `delete(musica)` ao ser clicado, que remove a música correspondente.
-
-
-
-Este código HTML renderiza uma tabela dinâmica que permite a visualização e manipulação de uma lista de músicas, onde o usuário pode remover músicas individualmente por meio de um botão de ação.
-
-Meu resultado:
 ```html
    <table class="table">
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Titulo</th>
+                <th scope="col">Título</th>
                 <th scope="col">Nota</th>
                 <th scope="col">Artista</th>
-                <th scope="col">Genero</th>
+                <th scope="col">Gênero</th>
                 <th scope="col">Ano</th>
-                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
           <tr *ngFor="let musica of musicas">
             <th scope="row">{{musica.id}}</th>
             <td>{{musica.name}}</td>
-            <td>{{musica.price}}</td>
+            <td>{{musica.note}}</td>
             <td>{{musica.category}}</td>
             <td>{{musica.artist}}</td>
             <td>{{musica.year}}</td>
-            <td><button class="btn btn-danger"(click)="delete(musica)">Remover</button></td>
           </tr>
         </tbody>
      </table>
 ```
 
 ### 5. Implementação Inicial com Dados Localizados no Componente
+(Quarto Commit - Commits on Sep 12, 2024)
 
-1. Antes de integrar com uma API externa, os dados das músicas foram mantidos diretamente dentro do componente Angular. Abaixo está o código que foi usado no arquivo `tabela-de-musicas.component.ts`:
+Inicialmente, a interface `musica` foi definida no arquivo `musicas.ts`, ela cria o objeto Musicas:
+
+```plaintext
+src/app/musicas.ts
+```
+
+```typescript
+export interface musica {
+  id: number;
+  name: string;
+  note: number;
+  category: string;
+  artist: string;
+  year: number;
+}
+```
+
+Em um primeiro momento, os dados das músicas são armazenados diretamente no componente.
+
+O caminho do arquivo é:
+
+```plaintext
+src/app/tabela-de-musicas/tabela-de-musicas.component.ts
+```
+
+Aqui está o código:
 
 ```typescript
 import { musica } from '../musicas';
@@ -152,7 +209,7 @@ export class TabelaDeMusicasComponent {
     {
       "id": 1,
       "name": "Bohemian Rhapsody",
-      "price": 9.99,
+      "note": 9.99,
       "category": "Rock",
       "artist": "Queen",
       "year": 1975
@@ -160,7 +217,7 @@ export class TabelaDeMusicasComponent {
     {
       "id": 2,
       "name": "Hotel California",
-      "price": 9.99,
+      "note": 9.99,
       "category": "Rock",
       "artist": "Eagles",
       "year": 1976
@@ -170,68 +227,62 @@ export class TabelaDeMusicasComponent {
 }
 ```
 
-2. A interface `musica` foi definida no arquivo `musicas.ts`:
-
-```typescript
-export interface musica {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  artist: string;
-  year: number;
-}
-```
 
 ### 6. Migração para Uso de uma API Externa com JSON Server
+(5º Commit - Commits on Sep 12, 2024)
 
-1. Instale o JSON Server, que será usado para criar uma API externa simulada:
+1. Instale o **JSON Server** para simular uma API:
 
-```bash
-npm install json-server
-```
+    ```bash
+    npm install json-server
+    ```
 
-2. Crie um arquivo `db.json` na raiz do projeto para definir os dados que o JSON Server irá fornecer:
+2. Crie o arquivo `db.json` na raiz do projeto para armazenar os dados da API :
 
-```json
-{
-  "musicas": [
+    ```json
     {
-      "id": 1,
-      "name": "Bohemian Rhapsody",
-      "price": 9.99,
-      "category": "Rock",
-      "artist": "Queen",
-      "year": 1975
-    },
-    {
-      "id": 2,
-      "name": "Hotel California",
-      "price": 9.99,
-      "category": "Rock",
-      "artist": "Eagles",
-      "year": 1976
+      "musicas": [
+        {
+          "id": 1,
+          "name": "Bohemian Rhapsody",
+          "note": 9.99,
+          "category": "Rock",
+          "artist": "Queen",
+          "year": 1975
+        },
+        {
+          "id": 2,
+          "name": "Hotel California",
+          "note": 9.99,
+          "category": "Rock",
+          "artist": "Eagles",
+          "year": 1976
+        }
+      ]
     }
-    // Outros objetos de música...
-  ]
-}
-```
+    ```
 
-3. Para iniciar o servidor JSON, execute o seguinte comando no terminal:
+3. Para iniciar o servidor JSON, execute:
 
-```bash
-json-server --watch db.json
-```
+    ```bash
+    json-server --watch db.json
+    ```
 
 ### 7. Criação do Serviço Angular para Consumo da API
 
-1. Gere um novo serviço Angular para gerenciar a lógica de consumo de dados da API:
+1. Gere um serviço Angular para consumir os dados da API:
 
-```bash
-ng g s musicas
+    ```bash
+    ng g s musicas
+    ```
+
+O arquivo gerado será:
+
+```plaintext
+src/app/musicas.service.ts
 ```
 
-2. No serviço `musicas.service.ts`, importe `HttpClient` e implemente métodos para buscar os dados das músicas:
+2. No arquivo `musicas.service.ts`, implemente o seguinte código:
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -253,28 +304,35 @@ export class MusicasService {
 }
 ```
 
-3. Certifique-se de importar `HttpClientModule` no arquivo `app.module.ts`:
+3. Não se esqueça de importar o `HttpClientModule` no `app.module.ts`:
+
+```plaintext
+src/app/app.module.ts
+```
 
 ```typescript
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    // Componentes...
-  ],
   imports: [
     HttpClientModule,
     // Outros módulos...
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }
 ```
 
-### 8. Conectando o Serviço com o Componente
+### 8. Conectando o Serviço ao Componente
 
-1. Modifique o componente `tabela-de-musicas.component.ts` para utilizar o serviço `MusicasService`:
+Agora, vamos modificar o componente para consumir os dados da API.
+
+O caminho do arquivo é:
+
+```plaintext
+src/app/tabela-de-musicas/tabela-de-musicas.component.ts
+```
+
+Aqui está o código atualizado:
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -303,32 +361,36 @@ export class TabelaDeMusicasComponent implements OnInit {
 
 1. Inicie a aplicação Angular com o comando:
 
-```bash
-ng serve
-```
+    ```bash
+    ng serve
+    ```
 
-2. Abra o navegador e navegue até `http://localhost:4200` para ver a tabela de músicas carregada com os dados da API externa.
-
+2. Abra o navegador e vá até `http://localhost:4200` para visualizar a tabela de músicas carregada com os dados da API externa.
 
 ### 10. Implementação da Função de Remoção de Músicas
+(8º Commit - Commits on Sep 13, 2024)
+Adicionamos a funcionalidade de remover músicas da lista.
 
-Após a exibição da lista de músicas, foi adicionada a funcionalidade de remoção. Agora, ao lado de cada música, há um botão que permite removê-la da lista. A lógica para essa operação foi implementada tanto no arquivo HTML quanto no arquivo TypeScript do componente.
+1. **HTML**: No `tabela-de-musicas.component.html`, adicione uma uma coluna de ações e um botão "Remover":
 
-#### 10.1 Modificação do HTML
+```plaintext
+src/app/tabela-de-musicas/tabela-de-musicas.component.html
+```
+A baixo de "<th scope="col">Ano</th>" acrescente:
+```html
+<th scope="col">Ações</th>
+```
 
-Adicionamos um botão "Remover" à tabela de músicas. O botão dispara o evento `(click)` para acionar a função `delete` no componente TypeScript.
-
-No arquivo `tabela-de-musicas.component.html`, adicione o seguinte código dentro do loop da tabela, onde as músicas são exibidas:
-
+E abaixo de "<td>{{musica.year}}</td>" adicione:
 ```html
 <td><button class="btn btn-danger" (click)="delete(musica)">Remover</button></td>
 ```
 
-Este botão utiliza a classe `btn btn-danger` do Bootstrap para estilização e chama a função `delete` passando como argumento a música selecionada.
+2. **TypeScript**: No `tabela-de-musicas.component.ts`, implemente a função `delete`:
 
-#### 10.2 Implementação da Função `delete`
-
-No arquivo `tabela-de-musicas.component.ts`, implemente a função `delete` que irá chamar o serviço responsável por remover a música da lista. Após a remoção, a lista é recarregada para refletir a mudança.
+```plaintext
+src/app/tabela-de-musicas/tabela-de-musicas.component.ts
+```
 
 ```typescript
 delete(musica: musica) {
@@ -337,24 +399,22 @@ delete(musica: musica) {
   });
 }
 ```
+(Cuidado com abertura e fechamento de chaves )
 
-#### 10.3 Modificação no Serviço `MusicasService`
 
-Para que a função de exclusão funcione corretamente, também é necessário adicionar a função `delete` ao serviço `MusicasService`. Essa função fará uma requisição HTTP DELETE para a API, removendo o item correspondente.
+3. **Serviço**: No `musicas.service.ts`, implemente o método de remoção:
 
-No arquivo `musicas.service.ts`, adicione o seguinte método:
-
-```typescript
-  delete(musica: musica): Observable<void>{
-   return this.http.delete<void>('http://localhost:3000/musics/' + musica.id);
-  }
+```plaintext
+src/app/musicas.service.ts
 ```
 
-Esse método constrói a URL com base no `id` da música e faz a requisição DELETE para remover o item da API.
+```typescript
+delete(musica: musica): Observable<void> {
+  return this.http.delete<void>('http://localhost:3000/musicas/' + musica.id);
+}
+```
 
-#### 10.4 Recarga da Lista de Músicas
-
-A função `loadMusicas` já existente é utilizada para recarregar a lista de músicas após a remoção. Isso garante que a tabela seja atualizada dinamicamente sem a necessidade de recarregar a página.
+4. **Recarregar a Lista**: Após a remoção, a lista é recarregada com o método `loadMusicas`:
 
 ```typescript
 loadMusicas(): void {
@@ -364,26 +424,9 @@ loadMusicas(): void {
 }
 ```
 
-### 11. Testando a Função de Remoção
+### Conclusão
 
-1. Inicie a aplicação com o comando:
-
-```bash
-ng serve
-```
-
-2. Abra a aplicação no navegador (`http://localhost:4200`) e tente remover uma música da lista clicando no botão "Remover". A música deve ser removida da tabela e o layout atualizado automaticamente.
-
-Essa funcionalidade de remoção torna o sistema mais dinâmico e interativo, permitindo ao usuário gerenciar os itens da lista de forma simples e eficiente.
-
-
-Esse trecho inclui as novas funcionalidades relacionadas à exclusão de músicas, explicando como implementar tanto o botão no HTML quanto a lógica necessária no componente e no serviço TypeScript.
-
-
-
-## Conclusão
-
-Este projeto demonstrou como criar uma aplicação Angular usando Bootstrap para estilização e consumindo dados de uma API externa. Começamos com dados locais e, em seguida, avançamos para uma arquitetura mais modular e escalável utilizando serviços e um servidor JSON.
+Este projeto mostrou como criar uma aplicação Angular estilizada com Bootstrap e consumindo dados de uma API externa simulada com **JSON Server**.
 
 ## Comandos Úteis
 
@@ -393,7 +436,3 @@ Este projeto demonstrou como criar uma aplicação Angular usando Bootstrap para
 
 ## Links Importantes
 
-- [Repositório no GitHub](https://github.com/Calebe-Dev/Projeto-Lista-De-Musicas---ADS-3-sem---prog...web)
-
-
-Esse README detalha todas as etapas, incluindo a fase inicial onde o array de músicas estava no componente. Dessa forma, ele cobre todo o desenvolvimento do projeto, desde o protótipo inicial até a versão final com a API externa.
