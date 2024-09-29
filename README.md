@@ -424,6 +424,183 @@ loadMusicas(): void {
 }
 ```
 
+
+### 12. Criação do Componente Formulário de Músicas
+
+Nesta etapa, foi criado um formulário para cadastrar músicas, permitindo ao usuário inserir novos dados como nome, nota, categoria, artista e ano. Além disso, foram configuradas rotas para navegar entre a tabela de músicas e o formulário.
+
+#### 12.1. Criando o Componente do Formulário
+(13º Commit - Commits on Sep 19, 2024)
+
+1. Crie o componente **formulario-musicas**:
+
+   ```bash
+   ng g c formulario-musicas
+   ```
+
+O arquivo gerado será:
+
+```plaintext
+src/app/formulario-musicas/formulario-musicas.component.ts
+```
+
+2. A estrutura do formulário no arquivo **formulario-musicas.component.html** será:
+
+```plaintext
+src/app/formulario-musicas/formulario-musicas.component.html
+```
+
+```html
+<div class="container">
+    <h1>Cadastro de Músicas</h1>
+    <div class="mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="name" placeholder="Digite o nome da música">
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Nota</label>
+        <input type="number" class="form-control" id="price" placeholder="Digite a nota para a música">
+    </div>
+    <div class="mb-3">
+        <label for="category" class="form-label">Categoria</label>
+        <input type="text" class="form-control" id="category" placeholder="Digite a categoria da música">
+    </div>
+    <div class="mb-3">
+        <label for="artist" class="form-label">Artista</label>
+        <input type="text" class="form-control" id="artist" placeholder="Digite o artista da música">
+    </div>
+    <div class="mb-3">
+        <label for="year" class="form-label">Ano</label>
+        <input type="number" class="form-control" id="year" placeholder="Digite o ano de lançamento da música">
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</div>
+```
+
+Este formulário permite ao usuário inserir os dados de uma nova música.
+
+#### 12.2. Definindo as Rotas
+
+Agora, vamos configurar as rotas para que o usuário possa navegar entre a página de listagem de músicas e a página de cadastro.
+
+No arquivo **app-routing.module.ts**, adicione as rotas necessárias:
+
+```plaintext
+src/app/app-routing.module.ts
+```
+
+```typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { TabelaDeMusicasComponent } from './tabela-de-musicas/tabela-de-musicas.component';
+import { FormularioMusicasComponent } from './formulario-musicas/formulario-musicas.component';
+
+const routes: Routes = [
+  { path: '', redirectTo:'/musicas', pathMatch:'full' },
+  { path: 'musicas', component: TabelaDeMusicasComponent },
+  { path: 'musica/:id', component: FormularioMusicasComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+Neste exemplo:
+
+- A rota padrão redireciona para a lista de músicas (`/musicas`).
+- A rota `/musicas` carrega o componente da **Tabela de Músicas**.
+- A rota `/musica/:id` carrega o formulário para editar ou adicionar uma música.
+
+#### 12.3. Adicionando o Outlet de Rotas
+
+No arquivo **app.component.html**, adicione o `<router-outlet>` para renderizar os componentes associados às rotas:
+
+```plaintext
+src/app/app.component.html
+```
+
+```html
+<router-outlet></router-outlet>
+```
+
+#### 12.4. Atualizando o Módulo Principal
+
+No arquivo **app.module.ts**, certifique-se de que os componentes e módulos necessários estejam importados:
+
+```plaintext
+src/app/app.module.ts
+```
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+import { TabelaDeMusicasComponent } from './tabela-de-musicas/tabela-de-musicas.component';
+import { FormularioMusicasComponent } from './formulario-musicas/formulario-musicas.component';
+import { AppRoutingModule } from './app-routing.module';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    TabelaDeMusicasComponent,
+    FormularioMusicasComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### 12.5. Adicionando Link para Edição na Tabela de Músicas
+
+No arquivo **tabela-de-musicas.component.html**, adicione um link de edição para cada música na tabela, usando o atributo `[routerLink]`:
+
+```plaintext
+src/app/tabela-de-musicas/tabela-de-musicas.component.html
+```
+
+```html
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Nota</th>
+            <th>Categoria</th>
+            <th>Artista</th>
+            <th>Ano</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let musica of musicas">
+            <th scope="row">{{ musica.id }}</th>
+            <td><a [routerLink]="['/musica', musica.id]">{{ musica.name }}</a></td>
+            <td>{{ musica.price }}</td>
+            <td>{{ musica.category }}</td>
+            <td>{{ musica.artist }}</td>
+            <td>{{ musica.year }}</td>
+            <td><button class="btn btn-danger">Remover</button></td>
+        </tr>
+    </tbody>
+</table>
+```
+Agora, cada nome de música na tabela será um link para a página de edição/cadastro do formulário.
+
+
+
+
 ### Conclusão
 
 Este projeto mostrou como criar uma aplicação Angular estilizada com Bootstrap e consumindo dados de uma API externa simulada com **JSON Server**.
